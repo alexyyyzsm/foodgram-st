@@ -1,4 +1,30 @@
-Находясь в папке infra, выполните команду docker-compose up. При выполнении этой команды контейнер frontend, описанный в docker-compose.yml, подготовит файлы, необходимые для работы фронтенд-приложения, а затем прекратит свою работу.
+Перейти в папку infra в проекте. 
+Выполнить команду поднятия docker контейнеров:
+docker compose up -d
 
-По адресу http://localhost изучите фронтенд веб-приложения, а по адресу http://localhost/api/docs/ — спецификацию API.
+Проверить что все контейнеры работают:
+docker ps
+
+Потом выполнить следующие команды:
+# собираем статику проекта
+docker compose exec backend_foodgram python manage.py collectstatic
+# статику из контейнера backend_foodgram копируем в том backend_static
+docker compose exec backend_foodgram cp -r /app/collected_static/. /backend_static/static/
+# применяем миграции к проекту
+docker compose exec backend_foodgram python manage.py migrate
+
+# загружаем данные ингредиентов в базу данных
+docker compose exec backend_foodgram python manage.py load_data
+
+# создание администратора
+docker compose exec backend_foodgram python manage.py createsuperuser
+
+вводим данные для администратора они будут использоваться для входа в админ-панел  по адресу:
+http://localhost/admin
+
+Теперь можно открыть проект по адресу в браузере:
+http://localhost
+
+Чтобы ознакомиться с API нужно перейти по ссылке:
+http://localhost/api/docs/
 
