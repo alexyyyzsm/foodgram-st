@@ -24,12 +24,11 @@ docker ps (их должно быть 4)
 
 Потом выполнить следующие команды:
 1) **собираем статику проекта**
-
-docker compose exec backend_foodgram python manage.py collectstatic
+   docker compose exec backend_foodgram python manage.py collectstatic
+   
 2) **статиcку из контейнера backend_foodgram копируем в том backend_static**
-
-docker compose exec backend_foodgram cp -r /app/collected_static/. /backend_static/static/
-3) **применяем миграции к проекту**
+   docker compose exec backend_foodgram cp -r /app/collected_static/. /backend_static/static/
+4) **применяем миграции к проекту**
 
 docker compose exec backend_foodgram python manage.py migrate
 4) **загружаем данные ингредиентов в базу данных**
