@@ -23,16 +23,16 @@ docker compose up -d
 docker ps (их должно быть 4)
 
 Потом выполнить следующие команды:
-1) собираем статику проекта
+1) **собираем статику проекта**
 docker compose exec backend_foodgram python manage.py collectstatic
-2) статику из контейнера backend_foodgram копируем в том backend_static
+2) **статиcку из контейнера backend_foodgram копируем в том backend_static**
 docker compose exec backend_foodgram cp -r /app/collected_static/. /backend_static/static/
-3) применяем миграции к проекту
+3) **применяем миграции к проекту**
 docker compose exec backend_foodgram python manage.py migrate
-4) загружаем данные ингредиентов в базу данных
+4) **загружаем данные ингредиентов в базу данных**
 docker compose exec backend_foodgram python manage.py load_data
 
-## создание администратора
+## Cоздание администратора
 docker compose exec backend_foodgram python manage.py createsuperuser
 
 вводим данные для администратора они будут использоваться для входа в админ-панел  по адресу:
