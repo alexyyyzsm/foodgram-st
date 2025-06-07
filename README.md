@@ -23,6 +23,7 @@ docker compose up -d
 **docker ps** (их должно быть 4)
 
 Потом выполнить следующие команды:
+
 **1) собираем статику проекта** -
    docker compose exec backend_foodgram python manage.py collectstatic
    
